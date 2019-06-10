@@ -95,11 +95,16 @@ public class Parsing {
     }
 
     public void CS() {              //复合语句
-        System.out.println("CS");
+        depth++;
         if (tl.get(tokenLoc).getTag() == Tag.BEGIN) {
+            printBranch();
+            System.out.println("begin");
             tokenLoc++;
+            printBranch();
+            System.out.println("语句块");
             SB();
             if (tl.get(tokenLoc).getTag() == Tag.END) {
+                printBranch();
                 System.out.println("end");
             }
             tokenLoc++;
@@ -107,49 +112,72 @@ public class Parsing {
             System.out.println("Invalid Input");
             System.exit(0);
         }
+        depth--;
     }
 
     public void VSL() {             //变量定义列表
-        System.out.println("VSL");
+        depth++;
         while (!tl.get(tokenLoc).toString().equals(";")) {
+            printBranch();
+            System.out.println("变量定义");
             VS();
         }
+        printBranch();
+        System.out.println(";");
         tokenLoc++;
+        depth--;
     }
 
     public void VNL() {             //变量名列表
-        System.out.println("VNL");
+        depth++;
+        printBranch();
+        System.out.println("变量名");
         VN();
         if (tl.get(tokenLoc).toString().equals(",")) {
+            printBranch();
+            System.out.println(",");
             tokenLoc++;
             VNL();
         }
+        depth--;
     }
 
     public void type() {            //类型
-        System.out.println("type");
+        depth++;
         if (!(tl.get(tokenLoc).getTag() == Tag.INTEGER)) { 
             System.out.println("Invalid Input");
             System.exit(0);
         }
+        printBranch();
+        System.out.println("integer");
         tokenLoc++;
+        depth--;
     }
     
     public void VN() {              //变量名
-        System.out.println("VN");
+        depth++;
+        printBranch();
+        System.out.println("标识符");
         ID();
+        depth--;
     }
 
     public void SB() {              //语句块
-        System.out.println("SB");
+        depth++;
+        printBranch();
+        System.out.println("语句");
         statement();
         if (tl.get(tokenLoc).toString().equals(";")) {
+            printBranch();
+            System.out.println(";");
             tokenLoc++;
             SB();
         }
+        depth--;
     }
 
     public void statement() {       //语句
+        depth++;
         System.out.println("statement");
         String str = tl.get(tokenLoc).toString();
         if (str.equals("if")) {
@@ -161,6 +189,7 @@ public class Parsing {
         } else if (tl.get(tokenLoc).getTag() == Tag.ID) {
             AS();
         }
+        depth--;
     }
 
     public void AS() {              //赋值语句
