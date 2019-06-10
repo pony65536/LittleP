@@ -7,7 +7,7 @@ LittleP/Java
 Java8及以上环境<br><br>
 ### 运行方法<br>
 ```console
-$ javac -encoding UTF-8 LittleP.java ; java LittleP
+$ javac -encoding UTF-8 LittleP.java ; java LittleP <filename>
 ```
 一个用java编写的LittleP编译器，目前可以打印语法树<br>
 LittleP使用语法如下:
