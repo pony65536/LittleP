@@ -3,57 +3,95 @@ import javax.swing.plaf.synth.SynthOptionPaneUI;
 public class Parsing {
     int tokenLoc = 0;
     Tokenlist tl = new Tokenlist();
+    private int depth;
+
+    private void printBranch() {
+        for (int i = 0; i < depth; i++) {
+            System.out.print("  ");
+        }
+    }
 
     public Parsing() {
+        System.out.println("程序");
         Prog();
     }
 
     public void Prog() {            //程序
-        System.out.println("PROG");
+        depth++;
+        printBranch();
+        System.out.println("程序首部");
         PH();
+        printBranch();
+        System.out.println("程序体");
         PB();
+        depth--;
     }
 
     public void PH() {              //程序首部
-        System.out.println("PH");
+        depth++;
+        printBranch();
+        System.out.println("program");
         if (tl.get(tokenLoc).getTag() == Tag.PROGRAM) {
             tokenLoc++;
+            printBranch();
+            System.out.println("程序名");
             PN();
         } else {
             System.out.println("Invalid Input");
             System.exit(0);
         }
+        depth--;
     }
 
     public void PB() {              //程序体
-        System.out.println("PB");
+        depth++;
+        printBranch();
+        System.out.println("变量声明");
         VD();
+        printBranch();
+        System.out.println("复合语句");
         CS();
+        depth--;
     }
 
     public void PN() {              //程序名
-        System.out.println("PN");
+        depth++;
+        printBranch();
+        System.out.println("标识符");
         ID();
+        depth--;
     }
 
     public void VD() {              //变量声明
-        System.out.println("VD");
+        depth++;
+        printBranch();
+        System.out.println("var");
         if (tl.get(tokenLoc).getTag() == Tag.VAR) {
+            printBranch();
+            System.out.println("变量定义列表");
             tokenLoc++;
             VSL();
         }
+        depth--;
     }
 
     public void VS() {              //变量定义
-        System.out.println("VS");
+        depth++;
+        printBranch();
+        System.out.println("变量名列表");
         VNL();
         if (tl.get(tokenLoc).toString().equals(":")) {
+            printBranch();
+            System.out.println(":");
             tokenLoc++;
+            printBranch();
+            System.out.println("类型");
             type();
         } else {
             System.out.println("Invalid Input");
             System.exit(0);
         }
+        depth--;
     }
 
     public void CS() {              //复合语句
