@@ -178,42 +178,69 @@ public class Parsing {
 
     public void statement() {       //语句
         depth++;
-        System.out.println("statement");
         String str = tl.get(tokenLoc).toString();
         if (str.equals("if")) {
+            printBranch();
+            System.out.println("条件语句");
             JS();
         } else if (str.equals("while")) {
+            printBranch();
+            System.out.println("循环语句");
             LS();
         } else if (str.equals("begin")) {
+            printBranch();
+            System.out.println("复合语句");
             CS();
         } else if (tl.get(tokenLoc).getTag() == Tag.ID) {
+            printBranch();
+            System.out.println("赋值语句");
             AS();
+        } else {
+            System.out.println("Invalid Input");
+            System.exit(0);
         }
         depth--;
     }
 
     public void AS() {              //赋值语句
-        System.out.println("AS");
+        depth++;
+        printBranch();
+        System.out.println("左部");
         LP();
         if (tl.get(tokenLoc).getTag() == Tag.IS) {
+            printBranch();
+            System.out.println(":=");
             tokenLoc++;
+            printBranch();
+            System.out.println("右部");
             RP();
         } else {
             System.out.println("Invalid Input");
             System.exit(0);
         }
+        depth--;
     }
 
     public void JS() {              //条件语句
-        System.out.println("JS");
+        depth++;
         if (tl.get(tokenLoc).getTag() == Tag.IF) {
+            printBranch();
+            System.out.println("if");
             tokenLoc++;
+            printBranch();
+            System.out.println("关系表达式");
             RS();
             if (tl.get(tokenLoc).getTag() == Tag.THEN) {
                 tokenLoc++;
+                printBranch();
+                System.out.println("语句");
                 statement();
                 if (tl.get(tokenLoc).getTag() == Tag.ELSE) {
+                    printBranch();
+                    System.out.println("else");
                     tokenLoc++;
+                    printBranch();
+                    System.out.println("语句");
                     statement();
                 } else {
                     System.out.println("Invalid Input");
@@ -227,15 +254,24 @@ public class Parsing {
             System.out.println("Invalid Input");
             System.exit(0);
         }
+        depth--;
     }
 
     public void LS() {              //循环语句
-        System.out.println("LS");
+        depth++;
         if (tl.get(tokenLoc).getTag() == Tag.WHILE) {
+            printBranch();
+            System.out.println("while");
             tokenLoc++;
+            printBranch();
+            System.out.println("关系表达式");
             RS();
             if (tl.get(tokenLoc).getTag() == Tag.DO) {
+                printBranch();
+                System.out.println("do");
                 tokenLoc++;
+                printBranch();
+                System.out.println("语句");
                 statement();
             } else {
                 System.out.println("Invalid Input");
@@ -245,101 +281,178 @@ public class Parsing {
             System.out.println("Invalid Input");
             System.exit(0);
         }
+        depth--;
     }
 
     public void LP() {              //左部
-        System.out.println("LP");
+        depth++;
+        printBranch();
+        System.out.println("变量名");
         VN();
+        depth--;
     }
 
     public void RP() {              //右部
-        System.out.println("RP");
+        depth++;
+        System.out.println("算术表达式");
         MS();
+        depth--;
     }
 
     public void MS() {              //算术表达式
-        System.out.println("MS");
+        depth++;
+        System.out.println("项");
         nape();
         MS1();
+        depth--;
     }
 
     public void MS1() {             //算术表达式(消除左递归)
         String str = tl.get(tokenLoc).toString();
-        if (str.equals("+") || str.equals("-")) {
+        if (str.equals("+")) {
+            printBranch();
+            System.out.println("+");
             tokenLoc++;
+            printBranch();
+            System.out.println("项");
+            nape();
+            MS1();
+        }
+        if (str.equals("-")) {
+            printBranch();
+            System.out.println("-");
+            tokenLoc++;
+            printBranch();
+            System.out.println("项");
             nape();
             MS1();
         }
     }
 
     public void RS() {              //关系表达式
+        depth++;
         System.out.println("RS");
+        printBranch();
+        System.out.println("算术表达式");
         MS();
+        printBranch();
+        System.out.println("关系运算符");
         OP();
+        printBranch();
+        System.out.println("算术表达式");
         MS();
+        depth--;
     }
 
     public void nape() {            //项
-        System.out.println("nape");
+        depth++;
+        printBranch();
+        System.out.println("因子");
         factor();
         nape1();
+        depth--;
     }
 
     public void nape1() {           //项(消除左递归)
         String str = tl.get(tokenLoc).toString();
-        if (str.equals("*") || str.equals("/")) {
+        if (str.equals("*")) {
+            printBranch();
+            System.out.println("*");
             tokenLoc++;
+            printBranch();
+            System.out.println("项");
+            factor();
+            nape1();
+        }
+        if (str.equals("/")) {
+            printBranch();
+            System.out.println("/");
+            tokenLoc++;
+            printBranch();
+            System.out.println("项");
             factor();
             nape1();
         }
     }
 
     public void ID() {              //标识符
-        System.out.println("ID");
+        depth++;
         if (tl.get(tokenLoc).getTag() == Tag.ID) {
+            printBranch();
             System.out.println(tl.get(tokenLoc).toString());
             tokenLoc++;
         } else {
             System.out.println("Invalid Input");
             System.exit(0);
         }
+        depth--;
     }
 
     public void OP() {              //关系运算符
-        System.out.println("OP");
+        depth++;
         switch (tl.get(tokenLoc).toString()) {
             case ">=":
+                printBranch();
+                System.out.println(">=");
             case "<=":
+                printBranch();
+                System.out.println("<=");
             case "<>":
+                printBranch();
+                System.out.println("<>");
             case ":=":
+                printBranch();
+                System.out.println(":=");
             case "<":
+                printBranch();
+                System.out.println("<");
             case ">":
+                printBranch();
+                System.out.println(">");
             case "=":
+                printBranch();
+                System.out.println("=");
+            default:
+                System.out.println("Invalid Input");
+                System.exit(0);
         }
         tokenLoc++;
-
+        depth--;
     }
 
     public void number() {          //数字
-        System.out.println("number");
+        depth++;
         if (tl.get(tokenLoc).getTag() == Tag.NUM) {
+            printBranch();
+            System.out.println(tl.get(tokenLoc).toString());
             tokenLoc++;
         } else {
             System.out.println("Invalid Input");
             System.exit(0);
         }
+        depth--;
     }
 
     public void factor() {          //因子
-        System.out.println("factor");
+        depth++;
         if (tl.get(tokenLoc).getTag() == Tag.NUM) {
+            printBranch();
+            System.out.println("数字");
             number();
         } else if (tl.get(tokenLoc).getTag() == Tag.ID) {
+            printBranch();
+            System.out.println("标识符");
             ID();
         } else if (tl.get(tokenLoc).toString().equals("(")) {
+            printBranch();
+            System.out.println("(");
             tokenLoc++;
+            printBranch();
+            System.out.println("算术表达式");
             MS();
             if (tl.get(tokenLoc).toString().equals(")")) {
+                printBranch();
+                System.out.println(")");
                 tokenLoc++;
             } else {
                 System.out.println("Invalid Input");
@@ -349,5 +462,6 @@ public class Parsing {
             System.out.println("Invalid Input");
             System.exit(0);
         }
+        depth--;
     }
 }
