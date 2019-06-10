@@ -294,6 +294,7 @@ public class Parsing {
 
     public void RP() {              //右部
         depth++;
+        printBranch();
         System.out.println("算术表达式");
         MS();
         depth--;
@@ -301,6 +302,7 @@ public class Parsing {
 
     public void MS() {              //算术表达式
         depth++;
+        printBranch();
         System.out.println("项");
         nape();
         MS1();
