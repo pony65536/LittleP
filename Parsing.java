@@ -233,6 +233,8 @@ public class Parsing {
             if (tl.get(tokenLoc).getTag() == Tag.THEN) {
                 tokenLoc++;
                 printBranch();
+                System.out.println("then");
+                printBranch();
                 System.out.println("语句");
                 statement();
                 if (tl.get(tokenLoc).getTag() == Tag.ELSE) {
@@ -333,7 +335,6 @@ public class Parsing {
 
     public void RS() {              //关系表达式
         depth++;
-        System.out.println("RS");
         printBranch();
         System.out.println("算术表达式");
         MS();
@@ -396,24 +397,31 @@ public class Parsing {
             case ">=":
                 printBranch();
                 System.out.println(">=");
+                break;
             case "<=":
                 printBranch();
                 System.out.println("<=");
+                break;
             case "<>":
                 printBranch();
                 System.out.println("<>");
+                break;
             case ":=":
                 printBranch();
                 System.out.println(":=");
+                break;
             case "<":
                 printBranch();
                 System.out.println("<");
+                break;
             case ">":
                 printBranch();
                 System.out.println(">");
+                break;
             case "=":
                 printBranch();
                 System.out.println("=");
+                break;
             default:
                 System.out.println("Invalid Input");
                 System.exit(0);
