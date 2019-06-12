@@ -3,3 +3,7 @@
 *.p
 
 .vscode
+
+*.txt
+
+*.doc
