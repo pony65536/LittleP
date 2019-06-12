@@ -10,7 +10,7 @@ public class Parsing {
     int tokenLoc = 0;
     Tokenlist tl = new Tokenlist();
     private int depth;
-    String outputString = new String();
+    static String outputString = new String();
 
     private void printBranch(String str) {
         for (int i = 0; i < depth; i++) {
@@ -18,13 +18,12 @@ public class Parsing {
             outputString += "  ";
         }
         System.out.println(str);
-        outputString += str + "\n";
+        outputString += str + "\r";
     }
 
-    public Parsing() throws IOException {
+    public Parsing() {
         System.out.println("程序");
         Prog();
-        outputTree();
     }
 
     public void outputTree() throws IOException {
