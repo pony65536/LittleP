@@ -8,8 +8,8 @@ public class Parsing {
     private void printBranch(String str) {
         for (int i = 0; i < depth; i++) {
             System.out.print("  ");
-            System.out.println(str);
         }
+        System.out.println(str);
     }
 
     public Parsing() {
