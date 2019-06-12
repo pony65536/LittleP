@@ -1,20 +1,39 @@
 import javax.swing.plaf.synth.SynthOptionPaneUI;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+
 public class Parsing {
     int tokenLoc = 0;
     Tokenlist tl = new Tokenlist();
     private int depth;
+    String outputString = new String();
 
     private void printBranch(String str) {
         for (int i = 0; i < depth; i++) {
             System.out.print("  ");
+            outputString += "  ";
         }
         System.out.println(str);
+        outputString += str + "\n";
     }
 
-    public Parsing() {
+    public Parsing() throws IOException {
         System.out.println("程序");
         Prog();
+        outputTree();
+    }
+
+    public void outputTree() throws IOException {
+        File writename = new File("./output.txt");
+        writename.createNewFile();
+        BufferedWriter out = new BufferedWriter(new FileWriter(writename));
+        out.write(outputString);
+        out.flush();
+        out.close();
     }
 
     public void Prog() {            //程序
