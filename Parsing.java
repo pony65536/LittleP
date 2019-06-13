@@ -12,7 +12,7 @@ public class Parsing {
     private int depth;
     static String outputString = new String();
 
-    private void printBranch(String str) {
+    private void printBranch(String str) {                  //打印语法书节点前空格
         for (int i = 0; i < depth; i++) {
             System.out.print("  ");
             outputString += "  ";
@@ -26,7 +26,7 @@ public class Parsing {
         Prog();
     }
 
-    public void invalidInput() {
+    public void invalidInput() {    //报错程序
         System.out.println("Invalid Input");
         outputString += "Invalid Input";
         try {
@@ -37,7 +37,7 @@ public class Parsing {
         System.exit(0);
     }
 
-    public void outputTree() throws IOException {
+    public void outputTree() throws IOException {           //打印和输出语法树,调用了printBranch()
         File writename = new File("./output.txt");
         writename.createNewFile();
         BufferedWriter out = new BufferedWriter(new FileWriter(writename));
