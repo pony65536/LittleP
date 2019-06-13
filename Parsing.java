@@ -137,7 +137,9 @@ public class Parsing {
         if (tl.get(tokenLoc).toString().equals(",")) {
             printBranch(",");
             tokenLoc++;
+            depth--;
             VNL();
+            depth++;
         }
         depth--;
     }
