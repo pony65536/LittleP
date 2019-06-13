@@ -26,6 +26,17 @@ public class Parsing {
         Prog();
     }
 
+    public void invalidInput() {
+        System.out.println("Invalid Input");
+        outputString += "Invalid Input";
+        try {
+            outputTree();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.exit(0);
+    }
+
     public void outputTree() throws IOException {
         File writename = new File("./output.txt");
         writename.createNewFile();
@@ -52,8 +63,7 @@ public class Parsing {
             printBranch("程序名");
             PN();
         } else {
-            System.out.println("Invalid Input");
-            System.exit(0);
+            invalidInput();
         }
         depth--;
     }
@@ -95,8 +105,7 @@ public class Parsing {
             printBranch("类型");
             type();
         } else {
-            System.out.println("Invalid Input");
-            System.exit(0);
+            invalidInput();
         }
         depth--;
     }
@@ -113,8 +122,7 @@ public class Parsing {
             }
             tokenLoc++;
         } else {
-            System.out.println("Invalid Input");
-            System.exit(0);
+            invalidInput();
         }
         depth--;
     }
@@ -147,8 +155,7 @@ public class Parsing {
     public void type() {            //类型
         depth++;
         if (!(tl.get(tokenLoc).getTag() == Tag.INTEGER)) { 
-            System.out.println("Invalid Input");
-            System.exit(0);
+            invalidInput();
         }
         printBranch("integer");
         tokenLoc++;
@@ -190,8 +197,7 @@ public class Parsing {
             printBranch("赋值语句");
             AS();
         } else {
-            System.out.println("Invalid Input");
-            System.exit(0);
+            invalidInput();
         }
         depth--;
     }
@@ -206,8 +212,7 @@ public class Parsing {
             printBranch("右部");
             RP();
         } else {
-            System.out.println("Invalid Input");
-            System.exit(0);
+            invalidInput();
         }
         depth--;
     }
@@ -230,16 +235,13 @@ public class Parsing {
                     printBranch("语句");
                     statement();
                 } else {
-                    System.out.println("Invalid Input");
-                    System.exit(0);
+                    invalidInput();
                 }
             } else {
-                System.out.println("Invalid Input");
-                System.exit(0);
+                invalidInput();
             }
         } else {
-            System.out.println("Invalid Input");
-            System.exit(0);
+            invalidInput();
         }
         depth--;
     }
@@ -257,12 +259,10 @@ public class Parsing {
                 printBranch("语句");
                 statement();
             } else {
-                System.out.println("Invalid Input");
-                System.exit(0);
+                invalidInput();
             }
         } else {
-            System.out.println("Invalid Input");
-            System.exit(0);
+            invalidInput();
         }
         depth--;
     }
@@ -350,8 +350,7 @@ public class Parsing {
             printBranch(tl.get(tokenLoc).toString());
             tokenLoc++;
         } else {
-            System.out.println("Invalid Input");
-            System.exit(0);
+            invalidInput();
         }
         depth--;
     }
@@ -381,8 +380,7 @@ public class Parsing {
                 printBranch("=");
                 break;
             default:
-                System.out.println("Invalid Input");
-                System.exit(0);
+            invalidInput();
         }
         tokenLoc++;
         depth--;
@@ -394,8 +392,7 @@ public class Parsing {
             printBranch(tl.get(tokenLoc).toString());
             tokenLoc++;
         } else {
-            System.out.println("Invalid Input");
-            System.exit(0);
+            invalidInput();
         }
         depth--;
     }
@@ -417,12 +414,10 @@ public class Parsing {
                 printBranch(")");
                 tokenLoc++;
             } else {
-                System.out.println("Invalid Input");
-                System.exit(0);
+                invalidInput();
             }
         } else {
-            System.out.println("Invalid Input");
-            System.exit(0);
+            invalidInput();
         }
         depth--;
     }
